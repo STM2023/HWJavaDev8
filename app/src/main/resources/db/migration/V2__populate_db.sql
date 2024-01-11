@@ -15,11 +15,11 @@ VALUES
          (11, 'Leo', '1999-12-11', 'Senior', 20000),
          (12, 'Lana', '1990-01-31', 'Junior' ,1900);
 
-INSERT INTO client  VALUES (1, 'Ramesh'),
-                           (2, 'Bogdan'),
-                           (3, 'Bill'),
-                           (4, 'Liliya'),
-                           (5, 'Vlad');
+INSERT INTO client (name) VALUES ( 'Ramesh'),
+                           ( 'Bogdan'),
+                           ( 'Bill'),
+                           ( 'Liliya'),
+                           ( 'Vlad');
 
 INSERT   INTO   project
                 ( id, client_id  ,  start_date,  finish_date)

@@ -23,8 +23,9 @@ public class ClientService {
 
         Connection connection =database.getConnection();
         createClient = connection.prepareStatement(
-                "INSERT INTO  client (id, name)  VALUES (?, ?)"
+                "INSERT INTO  client ( name)  VALUES ( ?)"
         );
+
         selectMaxIdClient = connection.prepareStatement(
                 "SELECT max(id) AS maxID FROM client"
         );
@@ -66,15 +67,14 @@ public class ClientService {
                   }
             }
         }
-        long id = -1;
-        try(ResultSet rs = selectMaxIdClient.executeQuery()){
-            rs.next();
-            id = rs.getLong("maxId");
-        }
-        id =id+1;
-        createClient.setLong(1, id);
-        createClient.setString(2, name);
+       long id = -1;
+
+        createClient.setString(1, name);
         createClient.executeUpdate();
+        try(ResultSet rs = selectMaxIdClient.executeQuery()){
+           rs.next();
+           id = rs.getLong("maxId");
+        }
         return id;
     }
     public  String getById(long id) throws IllegalArgumentException ,NullPointerException, SQLException {

@@ -17,6 +17,8 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         Database database = Database.getInstance();
+        Long id=-1l;
+        String name = "";
 
         new DatabaseInitService().initDb(database);
 
@@ -24,15 +26,20 @@ public class App {
 
         List<Client> clients = clientService.listAll();
         System.out.println(" clients = "+clients.toString());
-
-        try { clientService.create("July");
+        name="July";
+        try {id= clientService.create(name);
         }
         catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("Create ");
+        System.out.println(" id= "+id+" name = "+name);
 
-        Long id=5l;
-        String name = clientService.getById(id);
+        clients = clientService.listAll();
+        System.out.println(" clients = "+clients.toString());
+
+        name = clientService.getById(id);
+        System.out.println("getById  id= "+id);
         System.out.println(" id= "+id+" name = "+name);
 
         name="Maxim";
@@ -41,9 +48,12 @@ public class App {
         catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("setName id= "+id);
         System.out.println(" id= "+id+" name = "+name);
 
+        System.out.println("deleteById id= "+id);
         clientService.deleteById(id);
+
         clients = clientService.listAll();
         System.out.println(" clients = "+clients.toString());
 

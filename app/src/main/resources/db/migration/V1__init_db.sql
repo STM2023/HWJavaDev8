@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS  worker (
                salary INT NOT  NULL  CHECK ( salary  >=  100 AND  salary <= 100000));
 
 CREATE TABLE IF NOT EXISTS  client (
-               id INT PRIMARY KEY,
+               id INT AUTO_INCREMENT PRIMARY KEY,
                name VARCHAR(1000)    NOT  NULL  CHECK ( LENGTH (name)>=2 ));
 
 CREATE TABLE IF NOT EXISTS  project (
