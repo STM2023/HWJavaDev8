@@ -23,7 +23,8 @@ public class ClientService {
 
         Connection connection =database.getConnection();
         createClient = connection.prepareStatement(
-                "INSERT INTO  client ( name)  VALUES ( ?)"
+                "INSERT INTO  client ( name)  VALUES ( ?)",
+                PreparedStatement.RETURN_GENERATED_KEYS
         );
 
         selectMaxIdClient = connection.prepareStatement(
@@ -71,11 +72,12 @@ public class ClientService {
 
         createClient.setString(1, name);
         createClient.executeUpdate();
-        try(ResultSet rs = selectMaxIdClient.executeQuery()){
-           rs.next();
-           id = rs.getLong("maxId");
+
+        ResultSet rs = createClient.getGeneratedKeys();
+        if (rs.next()) {
+            id = rs.getLong(1); //вставленный ключ
         }
-        return id;
+        return  id;
     }
     public  String getById(long id) throws IllegalArgumentException ,NullPointerException, SQLException {
         if (id<0 || Long.toString(id) == ""|| Long.toString(id) == null) {
